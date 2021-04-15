@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Login from './Components/Login/Login';
+import Registro from './Components/Registro/Registro';
+import PaginaPrincipal from './Components/PaginaPrincipal/PaginaPrincipal';
+import Contacto from './Components/Contacto/Contacto';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="topnav">
+        <Link className="active" to="/">Home</Link>
+        <Link to="/Login">Login</Link>
+        <Link to="/Registro">Registro</Link>
+        <Link to="/Contacto">Contacto</Link>
+      </div>
+      <main className="px-3 scrollView">
+        <Route exact path="/" component={PaginaPrincipal}></Route>
+        <Route exact path="/Login" component={Login}></Route>
+        <Route exact path="/Registro" component={Registro}></Route>
+        <Route exact path="/Contacto" component={Contacto}></Route>
+      </main>
+    </Router>
   );
 }
 

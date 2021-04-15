@@ -1,0 +1,27 @@
+.contenedor-izquierdo{
+    float:left;
+    height:480px;
+    padding:20px;
+    width:400px;
+}
+
+.contenedor-derecho{
+    float:left;
+    height:480px;
+    padding:20px;
+    width:500px;
+
+    color: white;
+}
+
+.imagen{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.my-h1{
+    text-align: center;
+    color: white;
+}

@@ -1,0 +1,18 @@
+.cuadro-login{
+
+    background: #312c51;
+    width: 400px;       
+    height: 480px;
+    position: absolute;
+    top:25%;
+    left: 45%;           
+    margin-top: -50px;
+    margin-left: -100px;
+
+    color: white;
+}
+
+.div-interior{
+    margin-left: 5%;
+    margin-top: 5%;
+}
