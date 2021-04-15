@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react'
 import './Registro.css';
 import { db, storage } from '../../firebase';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
+import Swal from 'sweetalert2';
 
 class Registro extends React.Component {
 
@@ -29,21 +29,31 @@ class Registro extends React.Component {
         } else {
             var storageRef = storage.ref('/Img_User/' + foto.name);
             var subirImg = storageRef.put(foto);
-            await subirImg.on('state_changed', function (snapshot) {
-            }, function (error) {
-                console.log(error);
-            }, async function () {
-                console.log("Imagen correctamente subida");
-                const datos = {
-                    user: user,
-                    correo: correo,
-                    pswd: pswd,
-                    dir_imagen: '/Img_User/' + foto.name
-                }
-                await db.collection('user').doc().set(datos);
-                console.log("usuario añadido jeje");
-                window.location.href = "/Login";
-            });
+            if (pswd == rep_pswd) {
+                await subirImg.on('state_changed', function (snapshot) {
+                }, function (error) {
+                    console.log(error);
+                }, async function () {
+                    console.log("Imagen correctamente subida");
+                    const datos = {
+                        user: user,
+                        correo: correo,
+                        pswd: pswd,
+                        dir_imagen: '/Img_User/' + foto.name
+                    }
+                    await db.collection('user').doc().set(datos);
+                    console.log("usuario añadido jeje");
+                    window.location.href = "/Login";
+                });
+            }else{
+                Swal.fire({
+                    title:'Las contraseñas no coinciden',
+                    text:'No pasa nada, Intentalo de nuevo pliz',
+                    icon: 'error',
+                    showConfirmButton:true
+                })
+            }
+
         }
 
 
@@ -71,7 +81,7 @@ class Registro extends React.Component {
                     <br /><br /><br />
                     <label className="label-registro">Imagen de usuario: </label>
                     <br />
-                    <input className="input-registro" type="file" placeholder="example@something.com" id="user_img" accept="image/*" />                  
+                    <input className="input-registro" type="file" placeholder="example@something.com" id="user_img" accept="image/*" />
                     <br /><br /><br />
                     {!this.state.registro_completado && <button className="boton-registro" onClick={this.registrarUsuario} >Registrarme</button>}
                     {this.state.registro_completado && <Link to="/Login">Ir al Login...</Link>}
