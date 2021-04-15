@@ -6,8 +6,17 @@ import Swal from 'sweetalert2';
 
 export default class Contacto extends React.Component {
 
-    async envioCorreo() {
+    constructor(){
+        super();
+        this.state = {
+            correoEnviado: false
+        }
 
+        this.envioCorreo = this.envioCorreo.bind(this);
+    }
+
+    async envioCorreo() {
+        this.state.correo = true
         var env_correo = document.getElementById("correo").value;
         var env_subject = document.getElementById("subject").value;
         var env_img = localStorage.getItem("imagenUsuario");
@@ -33,31 +42,38 @@ export default class Contacto extends React.Component {
         console.log(data);
 
         if (data == "recibido") {
-            Swal.fire({
+            await Swal.fire({
                 title: `Mensaje correctamente enviado`,
                 text: 'Gracias por confiar en nosotros',
                 icon: 'success',
                 timer: 3000,
                 showConfirmButton: false
-            })
+            });
+            
+            window.location.href = "/" ;
         }
 
     }
 
     render() {
         return (
-            <div className="cuadro-login">
+            <div className="cuadro-contacto">
                 <div className="div-interior">
-                    <label>Enviar correo a: </label>
+                    <label className="label-contacto" >Enviar correo a: </label>
                     <br />
-                    <input type="text" placeholder="example@something.com" id="correo" />
+                    <input className="input-contacto" type="text" placeholder="example@something.com" id="correo" />
                     <br /><br />
 
-                    <label>Mensaje: </label>
+                    <label className="label-contacto" >Asunto: </label>
                     <br />
-                    <textarea type="text" placeholder="mensaje..." id="subject" />
+                    <textarea className="input-contacto" type="text" placeholder="mensaje..." id="subject" />
                     <br /><br /><br />
-                    <button onClick={this.envioCorreo} > Enviar Correo:</button>
+                    <button className="boton-contacto" onClick={this.envioCorreo} id = "btn_envio"> Enviar Correo: </button>
+
+                    <br /><br /><br />
+                    {this.state.correoEnviado && <label className="label-contacto" >Espere un momento, estamos enviando su correo... </label>}
+                    
+
                 </div>
             </div>
         );

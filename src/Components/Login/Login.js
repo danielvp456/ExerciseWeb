@@ -19,7 +19,7 @@ export default class Login extends React.Component {
     }
 
     async traerData(){
-        console.log("traigo data jaja");
+        
         const querySnapshot = await db.collection('user').get();
 
         querySnapshot.forEach(doc => {
@@ -37,14 +37,11 @@ export default class Login extends React.Component {
 
         for(var i = 0; i < this.state.correos.length; i++){
             if(correo === this.state.correos[i]){
-                console.log("MUY BIEN PANA");
                 if(pswd === this.state.contraseñas[i]){
                     this.state.user_name = this.state.usuarios[i]
-                    console.log("Bienvenid@ " + this.state.user_name + " acceso garantizado!!");
                     localStorage.setItem("nombre_usuario", this.state.user_name);
                     localStorage.setItem("loginUser", true);
                     localStorage.setItem("direccion", this.state.direccion_img[i]);
-                    console.log("num usuario: " + i);
                     window.location.href = "/" ;
                 }
             }
@@ -53,17 +50,17 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <div className="cuadro-login">
+            <div className="cuadro-logued">
                 <div className = "div-interior">
-                    <label>Profavor digita tu Correo: </label>
+                    <label className="label-login">Profavor digita tu Correo: </label>
                     <br/>
-                    <input type="text" placeholder="example@something.com" id="correo" />
+                    <input className="input-login" type="text" placeholder="example@something.com" id="correo" />
                     <br/><br/><br/>
-                    <label>Profavor digita tu contrasela: </label>
+                    <label className="label-login">Profavor digita tu contrasela: </label>
                     <br/>
-                    <input type="password" placeholder="password" id="password" />
+                    <input className="input-login" type="password" placeholder="password" id="password" />
                     <br/><br/><br/>
-                    <button onClick={this.ingresoApp} >Ingresar a la app</button>
+                    <button className="boton-login" onClick={this.ingresoApp} >Ingresar a la app</button>
                 </div>
             </div>
         );

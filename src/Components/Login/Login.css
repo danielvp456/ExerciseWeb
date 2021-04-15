@@ -1,19 +1,61 @@
-.cuadro-login{
+.cuadro-logued{
 
     background: #312c51;
-    width: 300px;       
-    height: 300px;
+    width: 40%;       
+    /*height: 70%;*/
     position: absolute;
-    top:50%;
-    left: 50%;           
-    margin-top: -100px;
-    margin-left: -100px;
+    top:15%;
+    left: 45%;
+    padding-top: 2%;           
+    margin-top: 5%;
+    margin-left: -15%;
 
     color: white;
+    border-radius: 5%;
+    text-align: center;
 }
 
 .div-interior{
     margin-left: 5%;
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
+.contenedor{
+    position: relative;
+    padding-top: 56.25%;
+}
+
+.input-login{
+    width: 50%;
+    background-color: #774f81;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 3%;
+    cursor: pointer;
+
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+.boton-login {
+    background-color: #45a049;
+    width: 35%;
+    height: 50px;
+    border-radius: 3%;
+
+    color: white;
+    cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.label-login{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+::placeholder { 
+    color: white; 
+    filter:brightness(0.8);
+}
