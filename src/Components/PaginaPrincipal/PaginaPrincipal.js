@@ -63,7 +63,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_01"> bicicleta eléctrica</h3>
+                                <h3 className="mb-0" id="titulo_01"> bicicleta eléctrica 01</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_01"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
