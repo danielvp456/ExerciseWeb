@@ -82,6 +82,7 @@ class App extends React.Component {
           <Link to="/Registro" id = "Registro" >Registro</Link>
           <Link to="/Contacto" id = "Contacto" >Contacto</Link>
           <Link onClick={this.cerrarSesion} style={{ color: "#CE2929" }} id="LogOut">Log Out</Link>
+          <Link >Tienda</Link>
         </div>
         <main className="px-3 scrollView">
           <Route exact path="/" component={PaginaPrincipal}></Route>
