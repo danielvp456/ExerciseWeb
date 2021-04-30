@@ -16,45 +16,87 @@ class Registro extends React.Component {
         this.render = this.render.bind(this);
     }
 
-    async registrarUsuario() {
+    async registrarUsuario(e) {
+        e.preventDefault();
         const user = document.getElementById("usuario").value;
         const correo = document.getElementById("correo").value;
         const pswd = document.getElementById("password").value;
         const rep_pswd = document.getElementById("rep_password").value;
-        const foto = document.getElementById("user_img").files[0];
+        const direccion = document.getElementById("direccion").value;
 
-        console.log(this.state);
-        if (!foto) {
-            console.log("olee suba algo!!")
-        } else {
-            var storageRef = storage.ref('/Img_User/' + foto.name);
-            var subirImg = storageRef.put(foto);
-            if (pswd == rep_pswd) {
-                await subirImg.on('state_changed', function (snapshot) {
-                }, function (error) {
-                    console.log(error);
-                }, async function () {
-                    console.log("Imagen correctamente subida");
+
+        
+        if (!user == "" && !correo == "" && !pswd == "" && !rep_pswd == "" && !direccion == "") {
+
+            
+            var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            if (!regex.test(correo)) {
+                Swal.fire({
+                    title: 'Correo invalido',
+                    text: 'Por favor ingresa bien el correo',
+                    icon: 'warning',
+                    showConfirmButton: true
+                });
+            } else {
+                if (pswd == rep_pswd) {
+
+                
                     const datos = {
                         user: user,
                         correo: correo,
                         pswd: pswd,
-                        dir_imagen: '/Img_User/' + foto.name
+                        direccion: direccion
+    
                     }
+    
+                    var correoRepetido = false;
+                    const querySnapshot = await db.collection('user').get();
+    
+                    querySnapshot.forEach(doc => {
+    
+                        if (correo==doc.data().correo) {
+                            Swal.fire({
+                                title: 'Este correo ya esta registrado',
+                                text: 'Por favor cambia el correo',
+                                icon: 'warning',
+                                showConfirmButton: true
+                            });
+                            correoRepetido=true;
+                        }
+    
+                    });
+    
+    
+    
+                    if(correoRepetido==false){
                     await db.collection('user').doc().set(datos);
                     console.log("usuario añadido jeje");
                     window.location.href = "/Login";
-                });
-            }else{
-                Swal.fire({
-                    title:'Las contraseñas no coinciden',
-                    text:'No pasa nada, Intentalo de nuevo pliz',
-                    icon: 'error',
-                    showConfirmButton:true
-                })
+                }
+    
+                } else {
+                    Swal.fire({
+                        title: 'Las contraseñas no coinciden',
+                        text: 'No pasa nada, Intentalo de nuevo pliz',
+                        icon: 'error',
+                        showConfirmButton: true
+                    });
+                }
             }
+           
 
+
+
+        } else {
+
+            Swal.fire({
+                title: 'Datos incompletos',
+                text: 'Por favor completa todos los campos',
+                icon: 'warning',
+                showConfirmButton: true
+            });
         }
+
 
 
     }
@@ -63,27 +105,35 @@ class Registro extends React.Component {
         return (
             <div className="cuadro-registro scroll">
                 <div className="div-interior">
-                    <label className="label-registro">Profavor digita tu Nombre: </label>
-                    <br />
-                    <input className="input-registro" type="text" placeholder="Alan Brito" id="usuario" />
-                    <br /><br />
-                    <label className="label-registro">Correo: </label>
-                    <br />
-                    <input className="input-registro" type="text" placeholder="example@something.com" id="correo" />
-                    <br /><br /><br />
-                    <label className="label-registro">Contraseña: </label>
-                    <br />
-                    <input className="input-registro" type="password" placeholder="password" id="password" />
-                    <br />
-                    <label className="label-registro">Rep_Contraseña: </label>
-                    <br />
-                    <input className="input-registro" type="password" placeholder="rep_password" id="rep_password" />
-                    <br /><br /><br />
-                    <label className="label-registro">Imagen de usuario: </label>
+                    <form>
+                        <label className="label-registro">Por favor digita tu Nombre: </label>
+                        <br />
+                        <input className="input-registro" type="text" placeholder="Alan Brito" id="usuario" required />
+                        <br />
+                        <label className="label-registro">Correo: </label>
+                        <br />
+                        <input className="input-registro" type="email" placeholder="example@something.com" id="correo" required />
+                        <br />
+                        <label className="label-registro">Contraseña: </label>
+                        <br />
+                        <input className="input-registro" type="password" placeholder="contraseña" id="password" required />
+                        <br />
+                        <label className="label-registro">Repita la Contraseña: </label>
+                        <br />
+                        <input className="input-registro" type="password" placeholder="contraseña" id="rep_password" required />
+                        <br />
+                        <label className="label-registro">Dirrecion: </label>
+                        <br />
+                        <input className="input-registro" type="text" placeholder="Cll 00 a #00 d - 00" id="direccion" required />
+                        <br></br>
+
+                        {/*<label className="label-registro">Imagen de usuario: </label>
                     <br />
                     <input className="input-registro" type="file" placeholder="example@something.com" id="user_img" accept="image/*" />
-                    <br /><br /><br />
-                    {!this.state.registro_completado && <button className="boton-registro" onClick={this.registrarUsuario} >Registrarme</button>}
+        <br /><br /><br />*/}
+                    </form>
+                    {!this.state.registro_completado && <button className="boton-registro" type="submit" onClick={this.registrarUsuario} >Registrarme</button>}
+
                     {this.state.registro_completado && <Link to="/Login">Ir al Login...</Link>}
                     <br />
                 </div>

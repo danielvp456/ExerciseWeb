@@ -13,7 +13,7 @@
     "react-dom": "^17.0.2",
     "react-gemini-scrollbar": "^2.3.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^4.0.3",
     "reactjs-components": "^5.0.3",
     "sweetalert2": "^10.16.2",
     "web-vitals": "^1.1.1"
@@ -44,7 +44,6 @@
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
-  "devDependencies": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
