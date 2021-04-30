@@ -35,3 +35,25 @@ main{
 .scrollView{
   overflow: auto;
 }
+
+#circulo {
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	background: red;
+	display: block;
+	justify-content: right;
+	align-items: flex-start;
+	text-align: center;
+}
+#circulo > p {
+	font-family: sans-serif;
+	color: white;
+	font-size: 0.9rem;
+	font-weight: bold;
+}
+
+#carrito{
+  position: absolute;
+}
+

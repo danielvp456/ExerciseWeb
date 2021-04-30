@@ -2,18 +2,19 @@ import React, { Component } from 'react'
 import './PaginaPrincipal.css'
 import { db, storage } from '../../firebase';
 import 'bootstrap/dist/css/bootstrap.css';
+import App from '../../App';
 
 export default class PaginaPrincipal extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             login: false,
             usuario: ""
         }
         //localStorage.clear();
-        this.funcionLogueado = this.funcionLogueado.bind(this);
         this.funcionBienvenido = this.funcionBienvenido.bind(this);
+        this.comprarElemento = this.comprarElemento.bind(this);
         this.evaluar();
     }
 
@@ -37,24 +38,63 @@ export default class PaginaPrincipal extends React.Component {
         }
     }
 
-    funcionLogueado() {
-        return (
-            <div>
-                <h1 className="my-h1"> Bienvenido al ejercicio desarrollo web </h1>
-                <div className="contenedor-izquierdo">
-                    <img src="" id="my_imagen" className="imagen" />
-                </div>
-                <div className="contenedor-derecho">
-                    <h2>Hola {this.state.usuario} </h2>
-                    <br /><br />
-                    <p>
-                        "Cualquier tecnología suficientemente avanzada es equivalente a la magia."
-                        Arthur C. Clarke
-                    </p>
-                </div>
-            </div>
-        );
+    comprarElemento(e, id_venta) {
+        e.preventDefault();
+        console.log("Debo agregar producto mi pana " + id_venta);
+        var nombre_producto = "";
+        var descripcion = "";
+        var precio = "";
+        switch (id_venta) {
+            case "1":
+                nombre_producto = document.getElementById("titulo_01").textContent;
+                descripcion = document.getElementById("descripcion_01").textContent;
+                precio = document.getElementById("precio_01").textContent;
+                break;
+            case "2":
+                nombre_producto = document.getElementById("titulo_02").textContent;
+                descripcion = document.getElementById("descripcion_02").textContent;
+                precio = document.getElementById("precio_02").textContent;
+                break;
+            case "3":
+                nombre_producto = document.getElementById("titulo_03").textContent;
+                descripcion = document.getElementById("descripcion_03").textContent;
+                precio = document.getElementById("precio_03").textContent;
+                break;
+            case "4":
+                nombre_producto = document.getElementById("titulo_04").textContent;
+                descripcion = document.getElementById("descripcion_04").textContent;
+                precio = document.getElementById("precio_04").textContent;
+                break;
+            case "5":
+                nombre_producto = document.getElementById("titulo_05").textContent;
+                descripcion = document.getElementById("descripcion_05").textContent;
+                precio = document.getElementById("precio_05").textContent;
+                break;
+        }
+
+        if (localStorage.getItem("product_name") == null) {
+            localStorage.setItem("product_name", nombre_producto);
+            localStorage.setItem("description", descripcion);
+            localStorage.setItem("price", precio);
+        }else{
+            var old_product_name = localStorage.getItem("product_name") + ";" + nombre_producto;
+            var old_product_description = localStorage.getItem("description") + ";" + descripcion;
+            var old_product_price = localStorage.getItem("price") + ";" + precio;
+            localStorage.setItem("product_name", old_product_name);
+            localStorage.setItem("description", old_product_description);
+            localStorage.setItem("price", old_product_price);
+        }
+
+        /*localStorage.setItem("product_name", "");
+        localStorage.setItem("description", "");
+        localStorage.setItem("price", "");*/
+
+
+        var app = new App();
+        app.agregarProducto();
+
     }
+
 
     funcionBienvenido() {
         return (
@@ -70,7 +110,9 @@ export default class PaginaPrincipal extends React.Component {
                             </p>
                                 <strong className="d-inline-block mb-2 " id="precio_01"> 1'000.000 $ </strong>
                                 <br />
-                                <button type="button" class="btn btn-primary" id="boton_01">Comprar Ahora</button>
+                                <button type="button" class="btn btn-primary" id="boton_01" onClick={e => this.comprarElemento(e, "1")}>
+                                    Comprar Ahora
+                                </button>
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
@@ -82,14 +124,14 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_02"> bicicleta eléctrica</h3>
+                                <h3 className="mb-0" id="titulo_02"> bicicleta eléctrica 02</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_02"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
                                 <strong className="d-inline-block mb-2 " id="precio_02"> 1'000.000 $ </strong>
                                 <br />
-                                <button type="button" class="btn btn-primary" id="boton_02">Comprar Ahora</button>
+                                <button type="button" class="btn btn-primary" id="boton_02" onClick={e => this.comprarElemento(e, "2")}>Comprar Ahora</button>
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
@@ -104,18 +146,18 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_03"> bicicleta eléctrica</h3>
+                                <h3 className="mb-0" id="titulo_03"> bicicleta eléctrica 03</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_03"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
                                 <strong className="d-inline-block mb-2 " id="precio_03"> 1'000.000 $ </strong>
                                 <br />
-                                <button type="button" class="btn btn-primary" id="boton_03">Comprar Ahora</button>
+                                <button type="button" class="btn btn-primary" id="boton_03" onClick={e => this.comprarElemento(e, "3")}>Comprar Ahora</button>
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_03"/>
+                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_03" />
                             </div>
                         </div>
                     </div>
@@ -123,18 +165,18 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_04"> bicicleta eléctrica</h3>
+                                <h3 className="mb-0" id="titulo_04"> bicicleta eléctrica 04</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_04"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
                                 <strong className="d-inline-block mb-2 " id="precio_04"> 1'000.000 $ </strong>
                                 <br />
-                                <button type="button" class="btn btn-primary" id="boton_04">Comprar Ahora</button>
+                                <button type="button" class="btn btn-primary" id="boton_04" onClick={e => this.comprarElemento(e, "4")}>Comprar Ahora</button>
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_04"/>
+                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_04" />
                             </div>
                         </div>
                     </div>
@@ -145,14 +187,14 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_05"> bicicleta eléctrica</h3>
+                                <h3 className="mb-0" id="titulo_05"> bicicleta eléctrica 05</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_05"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
                                 <strong className="d-inline-block mb-2 " id="precio_05"> 1'000.000 $ </strong>
                                 <br />
-                                <button type="button" class="btn btn-primary" id="boton_05">Comprar Ahora</button>
+                                <button type="button" class="btn btn-primary" id="boton_05" onClick={e => this.comprarElemento(e, "5")}>Comprar Ahora</button>
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
@@ -170,8 +212,7 @@ export default class PaginaPrincipal extends React.Component {
         return (
             <div className="">
                 <br /><br /><br />
-                {this.state.login && <this.funcionLogueado></this.funcionLogueado>}
-                {!this.state.login && <this.funcionBienvenido></this.funcionBienvenido>}
+                <this.funcionBienvenido></this.funcionBienvenido>
             </div>
 
         );
