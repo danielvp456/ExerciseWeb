@@ -7,6 +7,7 @@ import PaginaPrincipal from './Components/PaginaPrincipal/PaginaPrincipal';
 import Contacto from './Components/Contacto/Contacto';
 import { storage } from './firebase';
 import Swal from 'sweetalert2';
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends React.Component {
 
@@ -62,7 +63,7 @@ class App extends React.Component {
         window.location.replace('');
       } else {
         Swal.fire({
-          title: 'No hemos cerradp sesión, sigue disfrutando',
+          title: 'No hemos cerrado sesión, sigue disfrutando',
           icon: 'success',
           timer: 3000,
           showConfirmButton: false
