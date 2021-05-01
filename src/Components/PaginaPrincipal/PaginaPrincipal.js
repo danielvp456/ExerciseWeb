@@ -71,8 +71,8 @@ export default class PaginaPrincipal extends React.Component {
         return (
             <div>
                 <div className="row mb-2">
-                    <div className="col-md-6 contenedor-fondo">
-                        <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div className="col-md-6 ">
+                        <div className="contenedor-fondo row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
                                 <h3 className="mb-0" id="titulo_01"> BH Expert 4.0</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
@@ -87,13 +87,13 @@ export default class PaginaPrincipal extends React.Component {
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_01" />
+                                    src="https://bhbikes-vsf.netdna-ssl.com/download/bancorecursos/articulos2019/a4091_g94_n1.jpg" id="imagen_01" />
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-6 contenedor-fondo">
-                        <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div className="col-md-6 ">
+                        <div className="contenedor-fondo row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
                                 <h3 className="mb-0" id="titulo_02"> Conor Listing 9500</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
@@ -106,7 +106,7 @@ export default class PaginaPrincipal extends React.Component {
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_02" />
+                                    src="https://images-na.ssl-images-amazon.com/images/I/61aSjkgu9EL._AC_SX466_.jpg" id="imagen_02" />
                             </div>
                         </div>
                     </div>
@@ -114,8 +114,8 @@ export default class PaginaPrincipal extends React.Component {
 
 
                 <div className="row mb-2">
-                    <div className="col-md-6 contenedor-fondo">
-                        <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div className="col-md-6">
+                        <div className="contenedor-fondo row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
                                 <h3 className="mb-0" id="titulo_03"> NCM Moscow</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
@@ -128,13 +128,13 @@ export default class PaginaPrincipal extends React.Component {
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_03" />
+                                    src="https://images-na.ssl-images-amazon.com/images/I/61B0pjGV2bL._AC_SY355_.jpg" id="imagen_03" />
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-md-6 contenedor-fondo">
-                        <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div className="col-md-6">
+                        <div className="contenedor-fondo row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
                                 <h3 className="mb-0" id="titulo_04"> NCM Moscow Plus</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
@@ -147,7 +147,7 @@ export default class PaginaPrincipal extends React.Component {
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_04" />
+                                    src="https://i.pinimg.com/originals/2a/44/a7/2a44a778ee3c870e0adc065f7b6f34cc.png" id="imagen_04" />
                             </div>
                         </div>
                     </div>
@@ -155,8 +155,8 @@ export default class PaginaPrincipal extends React.Component {
 
 
                 <div className="row mb-2">
-                    <div className="col-md-6 contenedor-fondo">
-                        <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div className="col-md-6">
+                        <div className="contenedor-fondo row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
                                 <h3 className="mb-0" id="titulo_05"> Hiriyt 26”</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
@@ -169,7 +169,7 @@ export default class PaginaPrincipal extends React.Component {
                             </div>
                             <div className="col-auto d-none d-lg-block">
                                 <img width="200" height="180" x="50%" y="50%" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"
-                                    src="https://la.network/wp-content/uploads/2018/11/Yerka-v3-turquoise.jpg" id="imagen_05" />
+                                    src="https://images-na.ssl-images-amazon.com/images/I/51j1suWJaCL._AC_UL600_SR600,600_.jpg" id="imagen_05" />
                             </div>
                         </div>
                     </div>
