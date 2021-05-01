@@ -59,22 +59,6 @@ export default class graficos extends Component {
 
             <div className="card mb-4">
                 <div className="card-body">
-                    {/*<Chart
-                        id="graficaId"
-                        width={'500px'}
-                        height={'300px'}
-                        chartType="ColumnChart"
-                        loader={<div>Loading Chart</div>}
-                        data={this.state.datos}
-                        options={{
-                            isStacked: true,
-                            height: 300,
-                            legend: { position: 'top', maxLines: 6 },
-                            vAxis: { minValue: 0 },
-                        }}
-                        rootProps={{ 'data-testid': '1' }}
-                    />*/}
-
                     <Bar
                         data={{
                             labels: this.state.label_fecha,
