@@ -29,6 +29,9 @@ class App extends React.Component {
     this.agregarProducto = this.agregarProducto.bind(this);
     this.tiendaVistaModalDom = this.tiendaVistaModalDom.bind(this);
     this.cambio_cantidad_producto = this.cambio_cantidad_producto.bind(this);
+    this.actualizarCantidadProductos = this.actualizarCantidadProductos.bind(this);
+    this.elminiar_producto_canasta = this.elminiar_producto_canasta.bind(this);
+    this.validarLocalStorage = this.validarLocalStorage.bind(this);
 
 
     this.iniciar();
@@ -36,7 +39,7 @@ class App extends React.Component {
 
   async iniciar() {
     setInterval(() => {
-      if (localStorage.getItem("loginUser") != "true") {
+      if (localStorage.getItem("loginUser") != "true" || localStorage.getItem("loginUser") == null) {
         clearInterval(this);
       } else {
         if (localStorage.getItem("loginUser") == "true") {
@@ -45,12 +48,21 @@ class App extends React.Component {
           document.getElementById("Contacto").hidden = false;
           document.getElementById("LogOut").hidden = false;
         } else {
-          //document.getElementById("Login").hidden = false;
+          document.getElementById("Login").hidden = false;
           document.getElementById("Registro").hidden = false;
           document.getElementById("Contacto").hidden = true;
           document.getElementById("LogOut").hidden = true;
         }
       }
+
+      var suma = 0;
+      for (var i = 1; i < 6; i++) {
+        if(localStorage.getItem("producto"+i) != null ){
+          var objeto = JSON.parse(localStorage.getItem("producto"+i));
+          suma += parseInt(objeto.cantidad);
+        }
+      }
+      document.getElementById("productos_carrito").textContent = suma.toString();
     }, 500);
   }
 
@@ -100,42 +112,117 @@ class App extends React.Component {
     document.getElementById("productos_carrito").textContent = contador_productos.toString();
   }
 
-  cambio_cantidad_producto(e, pos) {
+  elminiar_producto_canasta(e) {
     e.preventDefault();
-    console.log("hola, me oprimión: " + pos);
+    var division = e.target.id.split("_");
+    var i = division[1];
+    console.log("boton precionado");
+    console.log(e.target.id);
+    Swal.fire({
+      title: '¿Está segur@ de cerrar sesión?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById("nombre_" + i).remove();
+        document.getElementById("precio_" + i).remove();
+        document.getElementById("boton_mas_" + i).remove();
+        document.getElementById("boton_menos_" + i).remove();
+        document.getElementById("cantidad_" + i).remove();
+        document.getElementById("remove_" + i).remove();
+      }
+    });
+
+    localStorage.removeItem("producto"+i,);
+
+    //this.validarLocalStorage();
+
+  }
+
+  cambio_cantidad_producto(e) {
+    e.preventDefault();
+    var sumaResta = e.target.id.split("_");
+    var posicion = sumaResta[2];
+    sumaResta = sumaResta[1];
+
+    var busca = "cantidad_" + posicion;
+    var contador = parseInt(document.getElementById(busca).textContent);
+
+    switch (sumaResta) {
+      case "mas":
+        contador = contador + 1;
+        console.log("Le sumo a: " + e.target.id);
+        break;
+      case "menos":
+        contador = contador - 1;
+        console.log("Le resto a: " + e.target.id);
+        break;
+    }
+
+    if (contador <= 0) {
+      contador = 0;
+    }
+
+    this.actualizarCantidadProductos(posicion, contador);
+    var busca = "cantidad_" + posicion;
+    document.getElementById(busca).textContent = contador.toString();
   }
 
   tiendaVistaModalDom() {
     var ReactDOM = require('react-dom');
-    var nombre = localStorage.getItem("product_name").split(";");
-    var precio = localStorage.getItem("price").split(";");
-
+    //var objeto = JSON.parse(localStorage.getItem("producto"+id_venta));
+    //objeto.cantidad = (parseInt(objeto.cantidad) + 1).toString();
     var elementos_nombre = [];
-    for (var i = 0; i < nombre.length; i++) {
-      var id_name = "nombre_" + i;
-      var id_price = "precio_" + i;
-      var id_boton_menos = "boton_menos_" + i;
-      var id_boton_mas = "boton_mas_" + i;
-      var id_cantidad = "catindad_" + i;
-      var id_remover = "remove_" + i;
-      const element_name = <h4 id={id_name}> {nombre[i]} </h4>;
-      const element_price = <h5 id={id_price}> {precio[i]} </h5>;
-      const element_change = <div>
-        <button id={id_boton_menos} onClick={e => this.cambio_cantidad_producto(e, i)}>  - </button>
-        <label id={id_cantidad}> 0 </label>
-        <button id={id_boton_mas} onClick={e => this.cambio_cantidad_producto(e, i)}> + </button>
-      </div>;
-      const element_remove = <button type="button" class="btn btn-danger" id={id_remover}>Remover</button>;
-      const element_br = <br />;
-      elementos_nombre.push(element_name);
-      elementos_nombre.push(element_price);
-      elementos_nombre.push(element_change);
-      elementos_nombre.push(element_remove);
-      elementos_nombre.push(element_br);
+    for(var i = 1; i < 6; i++){
+      if(localStorage.getItem("producto"+i) != null){
+        var objeto = JSON.parse(localStorage.getItem("producto"+i));
+        var id_name = "nombre_" + i;
+        var id_price = "precio_" + i;
+        var id_boton_menos = "boton_menos_" + i;
+        var id_boton_mas = "boton_mas_" + i;
+        var id_cantidad = "cantidad_" + i;
+        var id_remover = "remove_" + i;
+        const element_name = <h4 id={id_name}> {objeto.nombre} </h4>;
+        const element_price = <h5 id={id_price}> {objeto.precio} </h5>;
+        const element_change = <div>
+          <button id={id_boton_menos} onClick={e => this.cambio_cantidad_producto(e)}>  - </button>
+          <label id={id_cantidad}> {objeto.cantidad} </label>
+          <button id={id_boton_mas} onClick={e => this.cambio_cantidad_producto(e)}> + </button>
+        </div>;
+        const element_remove = <button type="button" class="btn btn-danger" id={id_remover}
+          onClick={e => this.elminiar_producto_canasta(e)} >Remover</button>;
+        const element_br = <br />;
+        elementos_nombre.push(element_name);
+        elementos_nombre.push(element_price);
+        elementos_nombre.push(element_change);
+        elementos_nombre.push(element_remove);
+        elementos_nombre.push(element_br);
+      }
     }
 
     ReactDOM.render(elementos_nombre, document.getElementById('modal_ventas'));
-    //ReactDOM.render(elementos_precio, document.getElementById('modal_ventas'));
+  }
+
+  actualizarCantidadProductos(posicion, cantidad_productos) {
+    //var cambio_cantidad = localStorage.getItem("cantidad").split(";");
+    var objeto = JSON.parse(localStorage.getItem("producto"+posicion));
+    objeto.cantidad = cantidad_productos.toString();
+    localStorage.setItem("producto"+posicion, JSON.stringify(objeto));
+  }
+
+  validarLocalStorage(){
+    console.log("hola soy local storage");
+    var nombres =  localStorage.getItem("product_name").split(";");
+    var descripcion = localStorage.getItem("description").split(";");
+    var precio = localStorage.getItem("price").split(";");
+    var cantidad = localStorage.getItem("cantidad").split(";");
+
+    /*for(var i = 0; i < n){
+
+    }*/
 
   }
 

@@ -16,6 +16,7 @@ export default class PaginaPrincipal extends React.Component {
         this.funcionBienvenido = this.funcionBienvenido.bind(this);
         this.comprarElemento = this.comprarElemento.bind(this);
         this.evaluar();
+
     }
 
     async evaluar() {
@@ -40,7 +41,6 @@ export default class PaginaPrincipal extends React.Component {
 
     comprarElemento(e, id_venta) {
         e.preventDefault();
-        console.log("Debo agregar producto mi pana " + id_venta);
         var nombre_producto = "";
         var descripcion = "";
         var precio = "";
@@ -72,23 +72,14 @@ export default class PaginaPrincipal extends React.Component {
                 break;
         }
 
-        if (localStorage.getItem("product_name") == null) {
-            localStorage.setItem("product_name", nombre_producto);
-            localStorage.setItem("description", descripcion);
-            localStorage.setItem("price", precio);
+        if(localStorage.getItem("producto"+id_venta) == null ){
+            var objeto = { 'nombre': nombre_producto, 'precio': precio, 'cantidad': 1 };
+            localStorage.setItem("producto"+id_venta, JSON.stringify(objeto));   
         }else{
-            var old_product_name = localStorage.getItem("product_name") + ";" + nombre_producto;
-            var old_product_description = localStorage.getItem("description") + ";" + descripcion;
-            var old_product_price = localStorage.getItem("price") + ";" + precio;
-            localStorage.setItem("product_name", old_product_name);
-            localStorage.setItem("description", old_product_description);
-            localStorage.setItem("price", old_product_price);
+            var objeto = JSON.parse(localStorage.getItem("producto"+id_venta));
+            objeto.cantidad = (parseInt(objeto.cantidad) + 1).toString();
+            localStorage.setItem("producto"+id_venta, JSON.stringify(objeto));
         }
-
-        /*localStorage.setItem("product_name", "");
-        localStorage.setItem("description", "");
-        localStorage.setItem("price", "");*/
-
 
         var app = new App();
         app.agregarProducto();
