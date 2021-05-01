@@ -1,0 +1,14 @@
+.card{
+    width: 50%;       
+    /*height: 70%;*/
+    position: absolute;
+    top:15%;
+    left: 45%;
+    padding-top: 2%;           
+    margin-top: 5%;
+    margin-left: -15%;
+  /*IMPORTANTE*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,6 +1,7 @@
 import './App.css';
 import React, { Component, useState } from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
 import Login from './Components/Login/Login';
 import Registro from './Components/Registro/Registro';
 import PaginaPrincipal from './Components/PaginaPrincipal/PaginaPrincipal';
@@ -11,6 +12,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label } from 'reactstrap';
 import { ThreeSixty } from '@material-ui/icons';
 import $ from 'jquery';
+
+
+import graficos from './Components/graficos/graficos';
 
 class App extends React.Component {
 
@@ -272,6 +276,7 @@ class App extends React.Component {
           <Route exact path="/Registro" component={Registro}></Route>
           <Route exact path="/Contacto" component={Contacto}></Route>
           <Route exact path="/tiendaModal" component={this.tiendaVista}></Route>
+          <Route exact path="/graficos" component={graficos}></Route>
         </main>
       </Router>
     );

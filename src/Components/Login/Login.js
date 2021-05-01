@@ -17,7 +17,7 @@ export default class Login extends React.Component {
         this.ingresoApp = this.ingresoApp.bind(this);
         this.traerData();
     }
-
+    
     async traerData(){
         
         const querySnapshot = await db.collection('user').get();
@@ -62,6 +62,8 @@ export default class Login extends React.Component {
                     <br/><br/><br/>
                     <button className="boton-login" onClick={this.ingresoApp} >Ingresar a la app</button>
                 </div>
+
+                
             </div>
         );
     }

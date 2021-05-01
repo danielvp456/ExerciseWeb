@@ -1,58 +1,60 @@
-.cuadro-registro{
-
-    background: #312c51;
-    width: 50%;       
+.cuadro-registro {
+    background: #141E30;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #243B55, #141E30);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #243B55, #141E30);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    width: 50%;
     /*height: 70%;*/
     position: absolute;
-    top:15%;
+    top: 15%;
     left: 45%;
-    padding-top: 2%;           
+    padding-top: 2%;
     margin-top: -2%;
     margin-left: -20%;
-
-    color: white;
+    color: gray;
     border-radius: 5%;
     text-align: center;
 }
 
-.div-interior{
+.div-interior {
     margin-left: 5%;
     margin-top: 5%;
     margin-bottom: 5%;
 }
 
-.contenedor{
+.contenedor {
     position: relative;
     padding-top: 56.25%;
 }
 
-.input-registro{
+.input-registro {
     width: 50%;
-    background-color: #774f81;
-    color: white;
+    
+    color: black;
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
     border-radius: 3%;
     cursor: pointer;
-
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
 
 .boton-registro {
     background-color: #45a049;
     width: 35%;
     height: 50px;
     border-radius: 3%;
-
     color: white;
     cursor: pointer;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.label-registro{
+.label-registro {
+    color: white;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
 
 /*                 */
