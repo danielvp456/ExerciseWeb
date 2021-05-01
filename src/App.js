@@ -38,6 +38,7 @@ class App extends React.Component {
     this.verificarLoguin = this.verificarLoguin.bind(this);
     this.enviarCorreo = this.enviarCorreo.bind(this);
     this.subirDatosDB = this.subirDatosDB.bind(this);
+    this.traerCompras = this.traerCompras.bind(this);
 
 
     this.iniciar();
@@ -51,12 +52,12 @@ class App extends React.Component {
         if (localStorage.getItem("loginUser") == "true") {
           document.getElementById("Login").hidden = true;
           document.getElementById("Registro").hidden = true;
-          document.getElementById("Contacto").hidden = false;
+          document.getElementById("grafico").hidden = false;
           document.getElementById("LogOut").hidden = false;
         } else {
           document.getElementById("Login").hidden = false;
           document.getElementById("Registro").hidden = false;
-          document.getElementById("Contacto").hidden = true;
+          document.getElementById("grafico").hidden = true;
           document.getElementById("LogOut").hidden = true;
         }
       }
@@ -69,8 +70,35 @@ class App extends React.Component {
         }
       }
       document.getElementById("productos_carrito").textContent = suma.toString();
+
+      this.traerCompras();
     }, 500);
   }
+
+  async traerCompras(){
+    var arreglo_fechas = [];
+    var arreglo_producto1 = [];
+    var arreglo_producto2 = [];
+    var arreglo_producto3 = [];
+    var arreglo_producto4 = [];
+    var arreglo_producto5 = [];
+    const querySnapshot = await db.collection('compras').get();
+    querySnapshot.forEach(doc => {
+        arreglo_fechas.push(doc.data().fecha);
+        arreglo_producto1.push(doc.data().producto1);
+        arreglo_producto2.push(doc.data().producto2);
+        arreglo_producto3.push(doc.data().producto3);
+        arreglo_producto4.push(doc.data().producto4);
+        arreglo_producto5.push(doc.data().producto5);
+
+    });
+    localStorage.setItem("arreglo_fechas", JSON.stringify(arreglo_fechas));
+    localStorage.setItem("arreglo_producto1", JSON.stringify(arreglo_producto1));
+    localStorage.setItem("arreglo_producto2", JSON.stringify(arreglo_producto2));
+    localStorage.setItem("arreglo_producto3", JSON.stringify(arreglo_producto3));
+    localStorage.setItem("arreglo_producto4", JSON.stringify(arreglo_producto4));
+    localStorage.setItem("arreglo_producto5", JSON.stringify(arreglo_producto5));
+}
 
   cerrarSesion() {
     Swal.fire({
@@ -224,6 +252,7 @@ class App extends React.Component {
 
       const fecha = new Date();
       const var_fecha = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+      //const var_fecha = "30" + "/" + "04" + "/" + "2021";
       var data = { 'fecha': var_fecha, 'producto1': "0", 'producto2': "0", 'producto3': "0", 'producto4': "0", 'producto5': "0" }
 
       for (var i = 1; i < 6; i++) {
@@ -378,7 +407,7 @@ class App extends React.Component {
           <Link className="active" to="/">Home</Link>
           <Link to="/Login" id="Login">Login</Link>
           <Link to="/Registro" id="Registro" >Registro</Link>
-          <Link to="/Contacto" id="Contacto" >Contacto</Link>
+          <Link to="/grafica" id="grafico" >Grafica</Link>
           <Link onClick={this.cerrarSesion} style={{ color: "#CE2929" }} id="LogOut">Log Out</Link>
           <Link to="/tiendaModal" onClick={this.tiendaVista}>
             <div id="circulo">
@@ -395,7 +424,7 @@ class App extends React.Component {
           <Route exact path="/Registro" component={Registro}></Route>
           <Route exact path="/Contacto" component={Contacto}></Route>
           <Route exact path="/tiendaModal" component={this.tiendaVista}></Route>
-          <Route exact path="/graficos" component={graficos}></Route>
+          <Route exact path="/grafica" component={graficos}></Route>
         </main>
       </Router>
     );

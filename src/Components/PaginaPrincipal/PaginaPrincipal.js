@@ -74,7 +74,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_01"> bicicleta eléctrica 01</h3>
+                                <h3 className="mb-0" id="titulo_01"> BH Expert 4.0</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_01"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
@@ -95,7 +95,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_02"> bicicleta eléctrica 02</h3>
+                                <h3 className="mb-0" id="titulo_02"> Conor Listing 9500</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_02"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
@@ -117,7 +117,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_03"> bicicleta eléctrica 03</h3>
+                                <h3 className="mb-0" id="titulo_03"> NCM Moscow</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_03"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
@@ -136,7 +136,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_04"> bicicleta eléctrica 04</h3>
+                                <h3 className="mb-0" id="titulo_04"> NCM Moscow Plus</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_04"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
@@ -158,7 +158,7 @@ export default class PaginaPrincipal extends React.Component {
                     <div className="col-md-6">
                         <div className="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div className="col p-4 d-flex flex-column position-static">
-                                <h3 className="mb-0" id="titulo_05"> bicicleta eléctrica 05</h3>
+                                <h3 className="mb-0" id="titulo_05"> Hiriyt 26”</h3>
                                 <div className="mb-1 text-muted"> abr 30</div>
                                 <p className="card-text mb-auto" id="descripcion_05"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
