@@ -23,12 +23,8 @@ class Registro extends React.Component {
         const pswd = document.getElementById("password").value;
         const rep_pswd = document.getElementById("rep_password").value;
         const direccion = document.getElementById("direccion").value;
-
-
         
         if (!user == "" && !correo == "" && !pswd == "" && !rep_pswd == "" && !direccion == "") {
-
-            
             var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
             if (!regex.test(correo)) {
                 Swal.fire({

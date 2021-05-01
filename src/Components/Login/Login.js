@@ -41,7 +41,8 @@ export default class Login extends React.Component {
                     this.state.user_name = this.state.usuarios[i]
                     localStorage.setItem("nombre_usuario", this.state.user_name);
                     localStorage.setItem("loginUser", true);
-                    localStorage.setItem("direccion", this.state.direccion_img[i]);
+                    //localStorage.setItem("direccion", this.state.direccion_img[i]);
+                    localStorage.setItem("correoUser", correo);
                     window.location.href = "/" ;
                 }
             }

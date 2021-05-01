@@ -15,29 +15,9 @@ export default class PaginaPrincipal extends React.Component {
         //localStorage.clear();
         this.funcionBienvenido = this.funcionBienvenido.bind(this);
         this.comprarElemento = this.comprarElemento.bind(this);
-        this.evaluar();
 
     }
 
-    async evaluar() {
-        if (localStorage.getItem("loginUser") === "true") {
-            this.state.login = true;
-            this.state.usuario = localStorage.getItem("nombre_usuario");
-
-            const queryImg = await storage.ref().child(localStorage.getItem("direccion")).getDownloadURL().then(function (url) {
-                var img = document.getElementById('my_imagen');
-                img.src = url;
-                localStorage.setItem("imagenUsuario", img.src);
-                console.log("direccion exacta: " + img.src);
-            }).catch(function (error) {
-                console.log(error);
-            });
-            console.log("imagen");
-            console.log(localStorage.getItem("direccion"));
-
-
-        }
-    }
 
     comprarElemento(e, id_venta) {
         e.preventDefault();
@@ -99,7 +79,7 @@ export default class PaginaPrincipal extends React.Component {
                                 <p className="card-text mb-auto" id="descripcion_01"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
-                                <strong className="d-inline-block mb-2 " id="precio_01"> 1'000.000 $ </strong>
+                                <strong className="d-inline-block mb-2 " id="precio_01"> 1000000 </strong>
                                 <br />
                                 <button type="button" class="btn btn-primary" id="boton_01" onClick={e => this.comprarElemento(e, "1")}>
                                     Comprar Ahora
@@ -120,7 +100,7 @@ export default class PaginaPrincipal extends React.Component {
                                 <p className="card-text mb-auto" id="descripcion_02"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
-                                <strong className="d-inline-block mb-2 " id="precio_02"> 1'000.000 $ </strong>
+                                <strong className="d-inline-block mb-2 " id="precio_02"> 1000000 </strong>
                                 <br />
                                 <button type="button" class="btn btn-primary" id="boton_02" onClick={e => this.comprarElemento(e, "2")}>Comprar Ahora</button>
                             </div>
@@ -142,7 +122,7 @@ export default class PaginaPrincipal extends React.Component {
                                 <p className="card-text mb-auto" id="descripcion_03"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
-                                <strong className="d-inline-block mb-2 " id="precio_03"> 1'000.000 $ </strong>
+                                <strong className="d-inline-block mb-2 " id="precio_03"> 1000000 </strong>
                                 <br />
                                 <button type="button" class="btn btn-primary" id="boton_03" onClick={e => this.comprarElemento(e, "3")}>Comprar Ahora</button>
                             </div>
@@ -161,7 +141,7 @@ export default class PaginaPrincipal extends React.Component {
                                 <p className="card-text mb-auto" id="descripcion_04"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
-                                <strong className="d-inline-block mb-2 " id="precio_04"> 1'000.000 $ </strong>
+                                <strong className="d-inline-block mb-2 " id="precio_04"> 1000000 </strong>
                                 <br />
                                 <button type="button" class="btn btn-primary" id="boton_04" onClick={e => this.comprarElemento(e, "4")}>Comprar Ahora</button>
                             </div>
@@ -183,7 +163,7 @@ export default class PaginaPrincipal extends React.Component {
                                 <p className="card-text mb-auto" id="descripcion_05"> Bienvenidos damas y caballeros, esta bicicleta puede correr
                                 por al menos unos 50 km/hora, dependiendo de la cantidad de veces esta se puede dañar
                             </p>
-                                <strong className="d-inline-block mb-2 " id="precio_05"> 1'000.000 $ </strong>
+                                <strong className="d-inline-block mb-2 " id="precio_05"> 1000000 </strong>
                                 <br />
                                 <button type="button" class="btn btn-primary" id="boton_05" onClick={e => this.comprarElemento(e, "5")}>Comprar Ahora</button>
                             </div>

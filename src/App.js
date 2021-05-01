@@ -6,12 +6,12 @@ import Login from './Components/Login/Login';
 import Registro from './Components/Registro/Registro';
 import PaginaPrincipal from './Components/PaginaPrincipal/PaginaPrincipal';
 import Contacto from './Components/Contacto/Contacto';
-import { storage } from './firebase';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, FormGroup, Input, Label } from 'reactstrap';
 import { ThreeSixty } from '@material-ui/icons';
 import $ from 'jquery';
+import { db, storage } from './firebase';
 
 
 import graficos from './Components/graficos/graficos';
@@ -35,7 +35,9 @@ class App extends React.Component {
     this.cambio_cantidad_producto = this.cambio_cantidad_producto.bind(this);
     this.actualizarCantidadProductos = this.actualizarCantidadProductos.bind(this);
     this.elminiar_producto_canasta = this.elminiar_producto_canasta.bind(this);
-    this.validarLocalStorage = this.validarLocalStorage.bind(this);
+    this.verificarLoguin = this.verificarLoguin.bind(this);
+    this.enviarCorreo = this.enviarCorreo.bind(this);
+    this.subirDatosDB = this.subirDatosDB.bind(this);
 
 
     this.iniciar();
@@ -61,8 +63,8 @@ class App extends React.Component {
 
       var suma = 0;
       for (var i = 1; i < 6; i++) {
-        if(localStorage.getItem("producto"+i) != null ){
-          var objeto = JSON.parse(localStorage.getItem("producto"+i));
+        if (localStorage.getItem("producto" + i) != null) {
+          var objeto = JSON.parse(localStorage.getItem("producto" + i));
           suma += parseInt(objeto.cantidad);
         }
       }
@@ -123,7 +125,7 @@ class App extends React.Component {
     console.log("boton precionado");
     console.log(e.target.id);
     Swal.fire({
-      title: '¿Está segur@ de cerrar sesión?',
+      title: '¿Está segur@ de eliminar este producto?',
       icon: 'info',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -140,10 +142,7 @@ class App extends React.Component {
       }
     });
 
-    localStorage.removeItem("producto"+i,);
-
-    //this.validarLocalStorage();
-
+    localStorage.removeItem("producto" + i,);
   }
 
   cambio_cantidad_producto(e) {
@@ -180,9 +179,9 @@ class App extends React.Component {
     //var objeto = JSON.parse(localStorage.getItem("producto"+id_venta));
     //objeto.cantidad = (parseInt(objeto.cantidad) + 1).toString();
     var elementos_nombre = [];
-    for(var i = 1; i < 6; i++){
-      if(localStorage.getItem("producto"+i) != null){
-        var objeto = JSON.parse(localStorage.getItem("producto"+i));
+    for (var i = 1; i < 6; i++) {
+      if (localStorage.getItem("producto" + i) != null) {
+        var objeto = JSON.parse(localStorage.getItem("producto" + i));
         var id_name = "nombre_" + i;
         var id_price = "precio_" + i;
         var id_boton_menos = "boton_menos_" + i;
@@ -212,22 +211,142 @@ class App extends React.Component {
 
   actualizarCantidadProductos(posicion, cantidad_productos) {
     //var cambio_cantidad = localStorage.getItem("cantidad").split(";");
-    var objeto = JSON.parse(localStorage.getItem("producto"+posicion));
+    var objeto = JSON.parse(localStorage.getItem("producto" + posicion));
     objeto.cantidad = cantidad_productos.toString();
-    localStorage.setItem("producto"+posicion, JSON.stringify(objeto));
+    localStorage.setItem("producto" + posicion, JSON.stringify(objeto));
   }
 
-  validarLocalStorage(){
-    console.log("hola soy local storage");
-    var nombres =  localStorage.getItem("product_name").split(";");
-    var descripcion = localStorage.getItem("description").split(";");
-    var precio = localStorage.getItem("price").split(";");
-    var cantidad = localStorage.getItem("cantidad").split(";");
+  verificarLoguin() {
+    if (localStorage.getItem("loginUser") == "true") {
+      var recibo_envio = "";
+      var total_precio = 0;
+      var total_precio_iva = 0;
 
-    /*for(var i = 0; i < n){
+      const fecha = new Date();
+      const var_fecha = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
+      var data = { 'fecha': var_fecha, 'producto1': "0", 'producto2': "0", 'producto3': "0", 'producto4': "0", 'producto5': "0" }
 
-    }*/
+      for (var i = 1; i < 6; i++) {
+        if (localStorage.getItem("producto" + i) !== null) {
+          var objeto = JSON.parse(localStorage.getItem("producto" + i));
+          if (parseInt(objeto.cantidad) != 0) {
+            var precio_total_producto = parseInt(objeto.cantidad) * parseInt(objeto.precio);
+            switch (i) {
+              case 1:
+                data.producto1 = objeto.cantidad.toString();
+                break;
+              case 2:
+                data.producto2 = objeto.cantidad.toString();
+                break;
+              case 3:
+                data.producto3 = objeto.cantidad.toString();
+                break;
+              case 4:
+                data.producto4 = objeto.cantidad.toString();
+                break;
+              case 5:
+                data.producto5 = objeto.cantidad.toString();
+                break;
+            }
+            var precio_producto_iva = precio_total_producto - (precio_total_producto / 1.19);
+            total_precio += precio_total_producto;
+            total_precio_iva += precio_producto_iva;
+            recibo_envio += objeto.nombre + "       " + precio_total_producto + "\n";
+            recibo_envio += "                       Iva: " + precio_producto_iva + "\n" + "\n";
+          }
+        }
+      }
+      recibo_envio += "TOTAL IVA: " + total_precio_iva+ "\n";
+      recibo_envio += "TOTAL DE LA FACTURA: " + total_precio ;
 
+      console.log(recibo_envio.toString());
+      console.log(data);
+
+      //Enviar el correo;
+      this.enviarCorreo(recibo_envio);
+      //Almacenar datos y formatear localstorage
+      this.subirDatosDB(data);
+
+    } else {
+      Swal.fire({
+        title: 'Lo siento',
+        text: 'No estás logueado, porfavor inicia sesión',
+        icon: 'warning',
+        showConfirmButton: false
+      });
+    }
+  }
+
+  async subirDatosDB(datos) {
+    var fechaIgual = false;
+    var my_id_update = "";
+    const querySnapshot = await db.collection('compras').get();
+    querySnapshot.forEach(doc => {
+      if(datos.fecha == doc.data().fecha){
+        datos.producto1 = (parseInt(doc.data().producto1) + parseInt(datos.producto1)).toString();
+        datos.producto2 = (parseInt(doc.data().producto2) + parseInt(datos.producto2)).toString();
+        datos.producto3 = (parseInt(doc.data().producto3) + parseInt(datos.producto3)).toString();
+        datos.producto4 = (parseInt(doc.data().producto4) + parseInt(datos.producto4)).toString();
+        datos.producto5 = (parseInt(doc.data().producto5) + parseInt(datos.producto5)).toString();
+        fechaIgual = true;
+        my_id_update = doc.id;
+        //reemplazar ese dato de la db
+        console.log("key: " + doc.id);
+      }
+    });
+
+    if(fechaIgual == true){
+      //update
+      await db.collection('compras').doc(my_id_update).update(datos);
+    }else{
+      await db.collection('compras').doc().set(datos);
+      console.log("datos enviados");
+    }
+
+    for(var i = 1; i < 6; i++){
+      localStorage.removeItem("producto"+i); 
+    }
+
+  }
+
+
+  async enviarCorreo(recibo_envio) {
+    var correo_usuario = localStorage.getItem("correoUser");
+    var subject = "Factura de compra tuBiciOnline";
+    console.log(recibo_envio  );
+    var env_recibo = recibo_envio.toString();
+    //var env_recibo = "hola";
+    let headers = new Headers();
+    //let direccionServerEmail = 'https://emailwebexercise.herokuapp.com/correo';
+    let direccionServerEmail = 'https://emailwebexercise.herokuapp.com/correo';
+    headers.append('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', direccionServerEmail);
+    headers.append('Access-Control-Allow-Credentials', 'true');
+
+    const res = await fetch(direccionServerEmail, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        to: correo_usuario,
+        subject: subject,
+        urlImg: env_recibo
+      })
+    });
+
+    const data = await res.json();
+    console.log(data);
+
+    if (data == "recibido") {
+      await Swal.fire({
+        title: `Factura enviada a tu correo`,
+        text: 'Gracias por confiar en nosotros',
+        icon: 'success',
+        timer: 3000,
+        showConfirmButton: false
+      });
+
+      window.location.href = "/";
+    }
   }
 
   tiendaVista() {
@@ -244,7 +363,7 @@ class App extends React.Component {
 
           <ModalFooter>
             <Button color="primary" onClick={this.tiendaVistaModalDom}>Ver mi lista</Button>
-            <Button color="primary" > Pagar </Button>
+            <Button color="primary" onClick={this.verificarLoguin}> Pagar </Button>
             <Link className="btn btn-lg btn-secondary" aria-current="page" to="/"> Cerrar </Link>
           </ModalFooter>
         </Modal>
