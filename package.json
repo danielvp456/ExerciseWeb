@@ -12,6 +12,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-gemini-scrollbar": "^2.3.4",
+    "react-google-charts": "^3.0.15",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "reactjs-components": "^5.0.3",
